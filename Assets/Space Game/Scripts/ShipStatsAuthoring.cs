@@ -3,6 +3,13 @@ using System.Collections.Generic;
 using Unity.Entities;
 using UnityEngine;
 
+public struct ShipStats : IComponentData
+{
+	public float maxSpeed;
+	public float acceleration;
+	public float rotationSpeedDeg;
+	public float rotationSpeedRad;
+}
 public class ShipStatsAuthoring : MonoBehaviour
 {
 	public float maxSpeed = BaseShipStats.baseMaxSpeed;
@@ -24,3 +31,4 @@ public class ShipAccelerationBaker : Baker<ShipStatsAuthoring>
 		});
 	}
 }
+

@@ -14,9 +14,14 @@ public partial struct MoveShipISystem : ISystem
 
 	public void OnUpdate(ref SystemState state)
 	{
-		foreach (MoveShipAspect moveShipAspect in SystemAPI.Query<MoveShipAspect>())
-		{
-			moveShipAspect.MoveShip();
-		}
+		new MoveShipJob { }.ScheduleParallel();
+	}
+}
+
+public partial struct MoveShipJob : IJobEntity
+{
+	public void Execute(MoveShipAspect moveShipAspect)
+	{
+		moveShipAspect.MoveShip();
 	}
 }

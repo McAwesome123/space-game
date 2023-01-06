@@ -123,6 +123,59 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &424460724
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 424460726}
+  - component: {fileID: 424460725}
+  m_Layer: 0
+  m_Name: PhysicsStep
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &424460725
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 424460724}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d30974bf68d61043b1572197db94cdc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SimulationType: 1
+  m_Gravity:
+    x: -0
+    y: 0
+    z: -0
+  m_SolverIterationCount: 12
+  m_EnableSolverStabilizationHeuristic: 0
+  m_MultiThreaded: 1
+  m_SynchronizeCollisionWorld: 0
+--- !u!4 &424460726
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 424460724}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1858310045
 GameObject:
   m_ObjectHideFlags: 0
@@ -226,7 +279,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &7998535505084449453
 PrefabInstance:
@@ -242,7 +295,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8002971990076906518, guid: 9a311c5fc47566742a911e9c34b34064, type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8002971990076906518, guid: 9a311c5fc47566742a911e9c34b34064, type: 3}
       propertyPath: m_LocalPosition.x
@@ -284,8 +337,55 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1041345086, guid: 9a311c5fc47566742a911e9c34b34064, type: 3}
+    - {fileID: 1041345087, guid: 9a311c5fc47566742a911e9c34b34064, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8000352351091312640, guid: 9a311c5fc47566742a911e9c34b34064, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7998535505084449456}
+    - targetCorrespondingSourceObject: {fileID: 8000352351091312640, guid: 9a311c5fc47566742a911e9c34b34064, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7998535505084449455}
   m_SourcePrefab: {fileID: 100100000, guid: 9a311c5fc47566742a911e9c34b34064, type: 3}
+--- !u!1 &7998535505084449454 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8000352351091312640, guid: 9a311c5fc47566742a911e9c34b34064, type: 3}
+  m_PrefabInstance: {fileID: 7998535505084449453}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7998535505084449455
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7998535505084449454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d5e6947a26286f4d8b11ae03efea690, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pitchMult: 0
+  rollMult: 0
+  yawMult: 0
+  accelerationMult: 0
+  verticalTranslationMult: 0
+  horizontalTranslationMult: 0
+--- !u!114 &7998535505084449456
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7998535505084449454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04b7e8f9092f4ba4f90c14175dd709ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxSpeed: 300
+  acceleration: 10
+  rotationSpeedDeg: 24
+  rotationSpeedRad: 0.41887903
