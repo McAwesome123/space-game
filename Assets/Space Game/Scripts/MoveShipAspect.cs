@@ -13,36 +13,55 @@ public readonly partial struct MoveShipAspect : IAspect
 
 	//private readonly TransformAspect transformAspect;
 	private readonly RefRO<ShipStats> shipStats;
-	private readonly RefRO<ShipMovement> shipMovement;
+	private readonly RefRW<ShipMovement> shipMovement;
 	private readonly RefRW<PhysicsVelocity> physicsVelocity;
 
 	public void MoveShip()
 	{
-		// Get the intended pitch, yaw, roll velocity
-		float pitch = shipStats.ValueRO.rotationSpeedRad / Main.tickRate * shipMovement.ValueRO.pitchMult;
-		float yaw = shipStats.ValueRO.rotationSpeedRad / Main.tickRate * shipMovement.ValueRO.yawMult;
-		float roll = shipStats.ValueRO.rotationSpeedRad / Main.tickRate * shipMovement.ValueRO.rollMult;
+		// Rotation
+		// Temporary rotation acceleration. Will probably be moved and/or redone.
+		if ((shipMovement.ValueRW.currentPitchMult + 1) * BaseShipStats.baseRotationSpeedChange <= shipMovement.ValueRO.pitchMult)
+			shipMovement.ValueRW.currentPitchMult++;
+		if ((shipMovement.ValueRW.currentPitchMult - 1) * BaseShipStats.baseRotationSpeedChange >= shipMovement.ValueRO.pitchMult)
+			shipMovement.ValueRW.currentPitchMult--;
+
+		if ((shipMovement.ValueRW.currentYawMult + 1) * BaseShipStats.baseRotationSpeedChange <= shipMovement.ValueRO.yawMult)
+			shipMovement.ValueRW.currentYawMult++;
+		if ((shipMovement.ValueRW.currentYawMult - 1) * BaseShipStats.baseRotationSpeedChange >= shipMovement.ValueRO.yawMult)
+			shipMovement.ValueRW.currentYawMult--;
+
+		if ((shipMovement.ValueRW.currentRollMult + 1) * BaseShipStats.baseRotationSpeedChange <= shipMovement.ValueRO.rollMult)
+			shipMovement.ValueRW.currentRollMult++;
+		if ((shipMovement.ValueRW.currentRollMult - 1) * BaseShipStats.baseRotationSpeedChange >= shipMovement.ValueRO.rollMult)
+			shipMovement.ValueRW.currentRollMult--;
+
+		// Get the intended pitch, yaw, roll velocity.
+		float pitch = shipStats.ValueRO.rotationSpeedRad * shipMovement.ValueRO.currentPitchMult * BaseShipStats.baseRotationSpeedChange;
+		float yaw = shipStats.ValueRO.rotationSpeedRad * shipMovement.ValueRO.currentYawMult * BaseShipStats.baseRotationSpeedChange;
+		float roll = shipStats.ValueRO.rotationSpeedRad * shipMovement.ValueRO.currentRollMult * BaseShipStats.baseRotationSpeedChange;
 
 		// Apply the intended velocity. Angular velocity does not have inertia like linear velocity so it uses 'intended velocity - current velocity'.
 		physicsVelocity.ValueRW.Angular += new float3(pitch - physicsVelocity.ValueRO.Angular.x, yaw - physicsVelocity.ValueRO.Angular.y, roll - physicsVelocity.ValueRO.Angular.z);
 
-		// Get the current speed
+		// Movement
+		// TODO: Make it relative to current rotation (PhysicsVelocity.Angular already is)
+		// Get the current speed.
 		double currentVelocity = math.length(physicsVelocity.ValueRO.Linear);
 
-		// Calculate the translation acceleration multiplier then use it to clamp forward/backward acceleration multiplier
+		// Calculate the translation acceleration multiplier then use it to clamp forward/backward acceleration multiplier.
 		double2 translationMult = new(shipMovement.ValueRO.horizontalTranslationMult * BaseShipStats.baseTranslationMult, shipMovement.ValueRO.verticalTranslationMult * BaseShipStats.baseTranslationMult);
 		double accelerationClamp = math.sqrt(1 - translationMult.x * translationMult.x - translationMult.y * translationMult.y);
 
-		// Calculate the intended xyz velocity change and apply it
+		// Calculate the intended xyz velocity change and apply it.
 		double3 currentAcceleration = new(shipStats.ValueRO.acceleration / Main.tickRate * translationMult.x,
 						 shipStats.ValueRO.acceleration / Main.tickRate * translationMult.y,
 						 shipStats.ValueRO.acceleration / Main.tickRate * math.clamp(shipMovement.ValueRO.accelerationMult, -accelerationClamp, +accelerationClamp));
 		double3 newVelocity = physicsVelocity.ValueRO.Linear + currentAcceleration;
 
-		// Calculate the velocity difference
+		// Calculate the velocity difference.
 		double velocityMagnitudeChange = math.length(newVelocity) - currentVelocity;
 
-		// Calculate the velocity multiplier and apply it
+		// Calculate the velocity multiplier and apply it.
 		double trueAccelerationMult = 1 / (1 + (currentVelocity * velocityMagnitudeChange) / (shipStats.ValueRO.maxSpeed * shipStats.ValueRO.maxSpeed));
 		newVelocity *= trueAccelerationMult;
 		physicsVelocity.ValueRW.Linear = (float3)newVelocity;
