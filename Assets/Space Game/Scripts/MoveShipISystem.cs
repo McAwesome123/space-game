@@ -18,6 +18,7 @@ public partial struct MoveShipISystem : ISystem
 	}
 }
 
+[UpdateInGroup(typeof(FixedStepSimulationSystemGroup))]
 public partial struct MoveShipJob : IJobEntity
 {
 	public void Execute(MoveShipAspect moveShipAspect)

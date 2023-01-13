@@ -17,4 +17,7 @@ public struct BaseShipStats : IComponentData
 	public const float baseRotationSpeedDeg = 24;
 	public const float baseRotationSpeedRad = baseRotationSpeedDeg * Mathf.Deg2Rad; // Do not modify; Used to be "1 * (360 / (6 * 180 / Mathf.PI))", I have no clue where that came from
 	public const float baseRotationSpeedChange = 0.02f;
+
+	// I love floating point precision (/s)
+	public const float multFloatEpsilon = 0.0000002f;
 }

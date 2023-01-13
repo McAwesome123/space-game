@@ -11,7 +11,7 @@ public readonly partial struct MoveShipAspect : IAspect
 {
 	//private readonly Entity entity;
 
-	//private readonly TransformAspect transformAspect;
+	private readonly TransformAspect transformAspect;
 	private readonly RefRO<ShipStats> shipStats;
 	private readonly RefRW<ShipMovement> shipMovement;
 	private readonly RefRW<PhysicsVelocity> physicsVelocity;
@@ -20,19 +20,19 @@ public readonly partial struct MoveShipAspect : IAspect
 	{
 		// Rotation
 		// Temporary rotation acceleration. Will probably be moved and/or redone.
-		if ((shipMovement.ValueRW.currentPitchMult + 1) * BaseShipStats.baseRotationSpeedChange <= shipMovement.ValueRO.pitchMult)
+		if ((shipMovement.ValueRW.currentPitchMult + 1) * BaseShipStats.baseRotationSpeedChange <= shipMovement.ValueRO.pitchMult + BaseShipStats.multFloatEpsilon)
 			shipMovement.ValueRW.currentPitchMult++;
-		if ((shipMovement.ValueRW.currentPitchMult - 1) * BaseShipStats.baseRotationSpeedChange >= shipMovement.ValueRO.pitchMult)
+		if ((shipMovement.ValueRW.currentPitchMult - 1) * BaseShipStats.baseRotationSpeedChange >= shipMovement.ValueRO.pitchMult - BaseShipStats.multFloatEpsilon)
 			shipMovement.ValueRW.currentPitchMult--;
 
-		if ((shipMovement.ValueRW.currentYawMult + 1) * BaseShipStats.baseRotationSpeedChange <= shipMovement.ValueRO.yawMult)
+		if ((shipMovement.ValueRW.currentYawMult + 1) * BaseShipStats.baseRotationSpeedChange <= shipMovement.ValueRO.yawMult + BaseShipStats.multFloatEpsilon)
 			shipMovement.ValueRW.currentYawMult++;
-		if ((shipMovement.ValueRW.currentYawMult - 1) * BaseShipStats.baseRotationSpeedChange >= shipMovement.ValueRO.yawMult)
+		if ((shipMovement.ValueRW.currentYawMult - 1) * BaseShipStats.baseRotationSpeedChange >= shipMovement.ValueRO.yawMult - BaseShipStats.multFloatEpsilon)
 			shipMovement.ValueRW.currentYawMult--;
 
-		if ((shipMovement.ValueRW.currentRollMult + 1) * BaseShipStats.baseRotationSpeedChange <= shipMovement.ValueRO.rollMult)
+		if ((shipMovement.ValueRW.currentRollMult + 1) * BaseShipStats.baseRotationSpeedChange <= shipMovement.ValueRO.rollMult + BaseShipStats.multFloatEpsilon)
 			shipMovement.ValueRW.currentRollMult++;
-		if ((shipMovement.ValueRW.currentRollMult - 1) * BaseShipStats.baseRotationSpeedChange >= shipMovement.ValueRO.rollMult)
+		if ((shipMovement.ValueRW.currentRollMult - 1) * BaseShipStats.baseRotationSpeedChange >= shipMovement.ValueRO.rollMult - BaseShipStats.multFloatEpsilon)
 			shipMovement.ValueRW.currentRollMult--;
 
 		// Get the intended pitch, yaw, roll velocity.
@@ -44,7 +44,6 @@ public readonly partial struct MoveShipAspect : IAspect
 		physicsVelocity.ValueRW.Angular += new float3(pitch - physicsVelocity.ValueRO.Angular.x, yaw - physicsVelocity.ValueRO.Angular.y, roll - physicsVelocity.ValueRO.Angular.z);
 
 		// Movement
-		// TODO: Make it relative to current rotation (PhysicsVelocity.Angular already is)
 		// Get the current speed.
 		double currentVelocity = math.length(physicsVelocity.ValueRO.Linear);
 
@@ -53,10 +52,10 @@ public readonly partial struct MoveShipAspect : IAspect
 		double accelerationClamp = math.sqrt(1 - translationMult.x * translationMult.x - translationMult.y * translationMult.y);
 
 		// Calculate the intended xyz velocity change and apply it.
-		double3 currentAcceleration = new(shipStats.ValueRO.acceleration / Main.tickRate * translationMult.x,
-						 shipStats.ValueRO.acceleration / Main.tickRate * translationMult.y,
-						 shipStats.ValueRO.acceleration / Main.tickRate * math.clamp(shipMovement.ValueRO.accelerationMult, -accelerationClamp, +accelerationClamp));
-		double3 newVelocity = physicsVelocity.ValueRO.Linear + currentAcceleration;
+		double3 currentAcceleration = new(shipStats.ValueRO.acceleration / Global.tickRate * translationMult.x,
+						 shipStats.ValueRO.acceleration / Global.tickRate * translationMult.y,
+						 shipStats.ValueRO.acceleration / Global.tickRate * math.clamp(shipMovement.ValueRO.accelerationMult, -accelerationClamp, +accelerationClamp));
+		double3 newVelocity = physicsVelocity.ValueRO.Linear + Global.ApplyRotation(transformAspect.LocalRotation, currentAcceleration);
 
 		// Calculate the velocity difference.
 		double velocityMagnitudeChange = math.length(newVelocity) - currentVelocity;
