@@ -16,29 +16,55 @@ public readonly partial struct MoveShipAspect : IAspect
 	private readonly RefRW<ShipMovement> shipMovement;
 	private readonly RefRW<PhysicsVelocity> physicsVelocity;
 
+	public void SmoothRotation()
+	{
+		if (shipMovement.ValueRO.currentPitchMult + BaseShipStats.baseRotationSpeedChange <= shipMovement.ValueRO.pitchMult)
+		{
+			shipMovement.ValueRW.currentPitchMult += BaseShipStats.baseRotationSpeedChange;
+		}
+		else if (shipMovement.ValueRO.currentPitchMult - BaseShipStats.baseRotationSpeedChange >= shipMovement.ValueRO.pitchMult)
+		{
+			shipMovement.ValueRW.currentPitchMult -= BaseShipStats.baseRotationSpeedChange;
+		}
+		else
+		{
+			shipMovement.ValueRW.currentPitchMult = shipMovement.ValueRO.pitchMult;
+		}
+
+		if (shipMovement.ValueRO.currentYawMult + BaseShipStats.baseRotationSpeedChange <= shipMovement.ValueRO.yawMult)
+		{
+			shipMovement.ValueRW.currentYawMult += BaseShipStats.baseRotationSpeedChange;
+		}
+		else if (shipMovement.ValueRO.currentYawMult - BaseShipStats.baseRotationSpeedChange >= shipMovement.ValueRO.yawMult)
+		{
+			shipMovement.ValueRW.currentYawMult -= BaseShipStats.baseRotationSpeedChange;
+		}
+		else
+		{
+			shipMovement.ValueRW.currentYawMult = shipMovement.ValueRO.yawMult;
+		}
+
+		if (shipMovement.ValueRO.currentRollMult + BaseShipStats.baseRotationSpeedChange <= shipMovement.ValueRO.rollMult)
+		{
+			shipMovement.ValueRW.currentRollMult += BaseShipStats.baseRotationSpeedChange;
+		}
+		else if (shipMovement.ValueRO.currentRollMult - BaseShipStats.baseRotationSpeedChange >= shipMovement.ValueRO.rollMult)
+		{
+			shipMovement.ValueRW.currentRollMult -= BaseShipStats.baseRotationSpeedChange;
+		}
+		else
+		{
+			shipMovement.ValueRW.currentRollMult = shipMovement.ValueRO.rollMult;
+		}
+	}
+
 	public void MoveShip()
 	{
 		// Rotation
-		// Temporary rotation acceleration. Will probably be moved and/or redone.
-		if ((shipMovement.ValueRW.currentPitchMult + 1) * BaseShipStats.baseRotationSpeedChange <= shipMovement.ValueRO.pitchMult + BaseShipStats.multFloatEpsilon)
-			shipMovement.ValueRW.currentPitchMult++;
-		if ((shipMovement.ValueRW.currentPitchMult - 1) * BaseShipStats.baseRotationSpeedChange >= shipMovement.ValueRO.pitchMult - BaseShipStats.multFloatEpsilon)
-			shipMovement.ValueRW.currentPitchMult--;
-
-		if ((shipMovement.ValueRW.currentYawMult + 1) * BaseShipStats.baseRotationSpeedChange <= shipMovement.ValueRO.yawMult + BaseShipStats.multFloatEpsilon)
-			shipMovement.ValueRW.currentYawMult++;
-		if ((shipMovement.ValueRW.currentYawMult - 1) * BaseShipStats.baseRotationSpeedChange >= shipMovement.ValueRO.yawMult - BaseShipStats.multFloatEpsilon)
-			shipMovement.ValueRW.currentYawMult--;
-
-		if ((shipMovement.ValueRW.currentRollMult + 1) * BaseShipStats.baseRotationSpeedChange <= shipMovement.ValueRO.rollMult + BaseShipStats.multFloatEpsilon)
-			shipMovement.ValueRW.currentRollMult++;
-		if ((shipMovement.ValueRW.currentRollMult - 1) * BaseShipStats.baseRotationSpeedChange >= shipMovement.ValueRO.rollMult - BaseShipStats.multFloatEpsilon)
-			shipMovement.ValueRW.currentRollMult--;
-
 		// Get the intended pitch, yaw, roll velocity.
-		float pitch = shipStats.ValueRO.rotationSpeedRad * shipMovement.ValueRO.currentPitchMult * BaseShipStats.baseRotationSpeedChange;
-		float yaw = shipStats.ValueRO.rotationSpeedRad * shipMovement.ValueRO.currentYawMult * BaseShipStats.baseRotationSpeedChange;
-		float roll = shipStats.ValueRO.rotationSpeedRad * shipMovement.ValueRO.currentRollMult * BaseShipStats.baseRotationSpeedChange;
+		float pitch = shipStats.ValueRO.rotationSpeedRad * shipMovement.ValueRO.currentPitchMult;
+		float yaw = shipStats.ValueRO.rotationSpeedRad * shipMovement.ValueRO.currentYawMult;
+		float roll = shipStats.ValueRO.rotationSpeedRad * shipMovement.ValueRO.currentRollMult;
 
 		// Apply the intended velocity. Angular velocity does not have inertia like linear velocity so it uses 'intended velocity - current velocity'.
 		physicsVelocity.ValueRW.Angular += new float3(pitch - physicsVelocity.ValueRO.Angular.x, yaw - physicsVelocity.ValueRO.Angular.y, roll - physicsVelocity.ValueRO.Angular.z);
@@ -54,7 +80,7 @@ public readonly partial struct MoveShipAspect : IAspect
 		// Calculate the intended xyz velocity change and apply it.
 		double3 currentAcceleration = new(shipStats.ValueRO.acceleration / Global.tickRate * translationMult.x,
 						 shipStats.ValueRO.acceleration / Global.tickRate * translationMult.y,
-						 shipStats.ValueRO.acceleration / Global.tickRate * math.clamp(shipMovement.ValueRO.accelerationMult, -accelerationClamp, +accelerationClamp));
+						 shipStats.ValueRO.acceleration / Global.tickRate * math.clamp(shipMovement.ValueRO.currentAccelerationMult, -accelerationClamp, +accelerationClamp));
 		double3 newVelocity = physicsVelocity.ValueRO.Linear + Global.ApplyRotation(transformAspect.LocalRotation, currentAcceleration);
 
 		// Calculate the velocity difference.

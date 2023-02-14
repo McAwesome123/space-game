@@ -37,9 +37,9 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "positive",
-                    "id": "52418436-10e4-4ab4-be0b-92dec86ce109",
-                    "path": "<Keyboard>/w",
+                    "name": "negative",
+                    "id": "7eb7f89f-070b-47e3-a406-f9a9eac52faf",
+                    "path": "<Keyboard>/s",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
@@ -48,9 +48,9 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "negative",
-                    "id": "7eb7f89f-070b-47e3-a406-f9a9eac52faf",
-                    "path": "<Keyboard>/s",
+                    "name": "positive",
+                    "id": "52418436-10e4-4ab4-be0b-92dec86ce109",
+                    "path": "<Keyboard>/w",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
@@ -70,9 +70,9 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "positive",
-                    "id": "ef27b9df-10fe-4e5e-93a9-c6630b1c4115",
-                    "path": "<Keyboard>/d",
+                    "name": "negative",
+                    "id": "0cd571de-8b2a-4f35-ac19-5a7d69c40faf",
+                    "path": "<Keyboard>/a",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
@@ -81,9 +81,9 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "negative",
-                    "id": "0cd571de-8b2a-4f35-ac19-5a7d69c40faf",
-                    "path": "<Keyboard>/a",
+                    "name": "positive",
+                    "id": "ef27b9df-10fe-4e5e-93a9-c6630b1c4115",
+                    "path": "<Keyboard>/d",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
@@ -103,9 +103,9 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "positive",
-                    "id": "032d8701-4dd0-42f7-9422-6eeec60bf73a",
-                    "path": "<Keyboard>/q",
+                    "name": "negative",
+                    "id": "449f773f-0722-4ee4-84e9-847b850b6cd5",
+                    "path": "<Keyboard>/e",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
@@ -114,9 +114,9 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "negative",
-                    "id": "449f773f-0722-4ee4-84e9-847b850b6cd5",
-                    "path": "<Keyboard>/e",
+                    "name": "positive",
+                    "id": "032d8701-4dd0-42f7-9422-6eeec60bf73a",
+                    "path": "<Keyboard>/q",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
@@ -136,9 +136,9 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "positive",
-                    "id": "5893b5b6-53db-4505-958b-095930cb2a05",
-                    "path": "<Keyboard>/leftShift",
+                    "name": "negative",
+                    "id": "b3b7acf1-2e7b-4ab5-99c0-39d6d66f6a95",
+                    "path": "<Keyboard>/leftCtrl",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
@@ -147,9 +147,9 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "negative",
-                    "id": "b3b7acf1-2e7b-4ab5-99c0-39d6d66f6a95",
-                    "path": "<Keyboard>/leftCtrl",
+                    "name": "positive",
+                    "id": "5893b5b6-53db-4505-958b-095930cb2a05",
+                    "path": "<Keyboard>/leftShift",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
@@ -169,9 +169,9 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "positive",
-                    "id": "52fc6972-e699-4a8a-a7d8-72c6f5454e5d",
-                    "path": "<Keyboard>/t",
+                    "name": "negative",
+                    "id": "5a957791-a710-4a74-972a-adad791cd9b7",
+                    "path": "<Keyboard>/g",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
@@ -180,9 +180,9 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "negative",
-                    "id": "5a957791-a710-4a74-972a-adad791cd9b7",
-                    "path": "<Keyboard>/g",
+                    "name": "positive",
+                    "id": "52fc6972-e699-4a8a-a7d8-72c6f5454e5d",
+                    "path": "<Keyboard>/t",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
@@ -202,9 +202,9 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "positive",
-                    "id": "77d77569-da06-44b1-819c-08d1f6bbb47c",
-                    "path": "<Keyboard>/h",
+                    "name": "negative",
+                    "id": "49c9ae02-59a3-41d6-b3a1-3309c0a3e52e",
+                    "path": "<Keyboard>/f",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
@@ -213,9 +213,9 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "negative",
-                    "id": "49c9ae02-59a3-41d6-b3a1-3309c0a3e52e",
-                    "path": "<Keyboard>/f",
+                    "name": "positive",
+                    "id": "77d77569-da06-44b1-819c-08d1f6bbb47c",
+                    "path": "<Keyboard>/h",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",

@@ -8,10 +8,11 @@ public struct ShipMovement : IComponentData
 	public float pitchMult;
 	public float rollMult;
 	public float yawMult;
-	public int currentPitchMult;
-	public int currentRollMult;
-	public int currentYawMult;
+	public float currentPitchMult;
+	public float currentRollMult;
+	public float currentYawMult;
 	public float accelerationMult;
+	public float currentAccelerationMult;
 	public float verticalTranslationMult;
 	public float horizontalTranslationMult;
 }
@@ -20,10 +21,11 @@ public class ShipMovementAuthoring : MonoBehaviour
 	public float pitchMult = 0;
 	public float rollMult = 0;
 	public float yawMult = 0;
-	public int currentPitchMult = 0;
-	public int currentRollMult = 0;
-	public int currentYawMult = 0;
+	public float currentPitchMult = 0;
+	public float currentRollMult = 0;
+	public float currentYawMult = 0;
 	public float accelerationMult = 0;
+	public float currentAccelerationMult = 0;
 	public float verticalTranslationMult = 0;
 	public float horizontalTranslationMult = 0;
 }
@@ -41,6 +43,7 @@ public class ShipMovementBaker : Baker<ShipMovementAuthoring>
 			currentRollMult = authoring.currentRollMult,
 			currentYawMult = authoring.currentYawMult,
 			accelerationMult = authoring.accelerationMult,
+			currentAccelerationMult = authoring.currentAccelerationMult,
 			verticalTranslationMult = authoring.verticalTranslationMult,
 			horizontalTranslationMult = authoring.horizontalTranslationMult,
 		});
