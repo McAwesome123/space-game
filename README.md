@@ -8,3 +8,5 @@
  Nebula Skyboxes - https://assetstore.unity.com/packages/2d/textures-materials/sky/nebula-skyboxes-219924
  
  For this project to work properly, go to the assets' respective pages and add them to your assets. Then, after opening the project in the Unity Editor, go to Window > Package Manager > Packages: My Assets, then download and import the above assets.
+ 
+ Then for Star Sparrow Modular Spaceship, it is needed to go into SRP and double click on the URP_Materials file inside the Unity Editor.
