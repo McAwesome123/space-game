@@ -9,6 +9,13 @@ public struct ShipStats : IComponentData
 	public float acceleration;
 	public float rotationSpeedDeg;
 	public float rotationSpeedRad;
+
+	public float maxHullPoints;
+	public float maxArmorAmount;
+	public float maxShieldAmount;
+	public float currentHullPoints;
+	public float currentArmorAmount;
+	public float currentShieldAmount;
 }
 public class ShipStatsAuthoring : MonoBehaviour
 {

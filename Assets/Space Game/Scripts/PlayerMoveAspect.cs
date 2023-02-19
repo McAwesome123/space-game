@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Entities;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using Unity.Mathematics;
 
 public readonly partial struct PlayerMoveAspect : IAspect
@@ -14,7 +13,7 @@ public readonly partial struct PlayerMoveAspect : IAspect
 	{
 		// Rotation Input
 		shipMovement.ValueRW.pitchMult = playerMovementInput.pitch;
-		if (playerMovementInput.rollModifier == 0 && playerMovementInput.yawArrows != 0)
+		if (playerMovementInput.rollModifier != 0 && playerMovementInput.yawArrows != 0)
 		{
 			if (playerMovementInput.yaw != 0)
 			{
@@ -29,7 +28,7 @@ public readonly partial struct PlayerMoveAspect : IAspect
 		{
 			shipMovement.ValueRW.yawMult = playerMovementInput.yaw;
 		}
-		if (playerMovementInput.rollModifier != 0 && playerMovementInput.rollArrows != 0)
+		if (playerMovementInput.rollModifier == 0 && playerMovementInput.rollArrows != 0)
 		{
 			if (playerMovementInput.roll != 0)
 			{

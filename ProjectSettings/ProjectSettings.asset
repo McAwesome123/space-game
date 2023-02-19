@@ -725,7 +725,7 @@ PlayerSettings:
   embeddedLinuxEnableGamepadInput: 1
   hmiCpuConfiguration: 
   apiCompatibilityLevel: 6
-  activeInputHandler: 2
+  activeInputHandler: 0
   windowsGamepadBackendHint: 0
   cloudProjectId: a603a164-591b-49ef-89c0-ac749f5434c1
   framebufferDepthMemorylessMode: 0

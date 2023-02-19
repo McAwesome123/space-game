@@ -176,26 +176,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1928333679 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8000352351091312640, guid: 9a311c5fc47566742a911e9c34b34064, type: 3}
-  m_PrefabInstance: {fileID: 7998535505084449453}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1928333684
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1928333679}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1d21b2741e841dd45b5a142f2aee470d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  setAccelerationMax: 0
-  setAccelerationZero: 0
-  setAccelerationMin: 0
 --- !u!1001 &7998535505084449453
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -204,10 +184,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 7998535505084449455, guid: 9a311c5fc47566742a911e9c34b34064, type: 3}
-      propertyPath: accelerationMult
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8000352351091312640, guid: 9a311c5fc47566742a911e9c34b34064, type: 3}
       propertyPath: m_Name
       value: PlayerShip
@@ -259,8 +235,5 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 8000352351091312640, guid: 9a311c5fc47566742a911e9c34b34064, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1928333684}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9a311c5fc47566742a911e9c34b34064, type: 3}

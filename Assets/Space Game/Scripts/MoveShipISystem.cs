@@ -55,9 +55,11 @@ public partial struct MoveShipISystem : ISystem
 			setAccelerationMin = Input.GetAxis("Set Acceleration Min"),
 		};
 
-		new PlayerInputJob { playerMovementInput = input }.Run();
+		JobHandle jobHandle = new PlayerInputJob { playerMovementInput = input }.Schedule(state.Dependency);
 
-		JobHandle jobHandle = new SmoothRotationJob { }.ScheduleParallel(state.Dependency);
+		jobHandle.Complete();
+
+		jobHandle = new SmoothRotationJob { }.ScheduleParallel(state.Dependency);
 
 		jobHandle.Complete();
 
