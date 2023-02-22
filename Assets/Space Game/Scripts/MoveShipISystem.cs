@@ -91,7 +91,9 @@ public partial struct SmoothRotationJob : IJobEntity
 
 [BurstCompile]
 [UpdateInGroup(typeof(FixedStepSimulationSystemGroup))]
+#pragma warning disable CS0282 // There is no defined ordering between fields in multiple declarations of partial struct
 public partial struct PlayerInputJob : IJobEntity
+#pragma warning restore CS0282 // There is no defined ordering between fields in multiple declarations of partial struct
 {
 	public PlayerMovementInput playerMovementInput;
 

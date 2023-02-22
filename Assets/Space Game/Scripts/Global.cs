@@ -4,9 +4,51 @@ using Unity.Entities;
 using Unity.Mathematics;
 using UnityEngine;
 
-public struct Global : IComponentData
+public class Global : MonoBehaviour
 {
 	public const int tickRate = 100;
+
+	public bool recalculateStats = false;
+
+	public int playerResources = 50;
+	public int playerSectorsPassed = 0;
+
+	public int playerEngineUpgrades = 1;
+	public int playerArmorUpgrades = 1;
+	public int playerShieldUpgrades = 1;
+	public int playerLaserUpgrades = 1;
+	public int playerKineticUpgrades = 1;
+	public int playerMissileUpgrades = 1;
+
+	public int playerEngineUpgradeCost = (int)math.round(BaseShipStats.shipBaseUpgradeCost);
+	public int playerArmorUpgradeCost = (int)math.round(BaseShipStats.shipBaseUpgradeCost);
+	public int playerShieldUpgradeCost = (int)math.round(BaseShipStats.shipBaseUpgradeCost);
+	public int playerLaserUpgradeCost = (int)math.round(BaseShipStats.shipBaseUpgradeCost);
+	public int playerKineticUpgradeCost = (int)math.round(BaseShipStats.shipBaseUpgradeCost);
+	public int playerMissileUpgradeCost = (int)math.round(BaseShipStats.shipBaseUpgradeCost);
+
+	private void Start()
+	{
+		recalculateStats = false;
+
+		playerResources = 50;
+		playerSectorsPassed = 0;
+
+		playerEngineUpgrades = 1;
+		playerArmorUpgrades = 1;
+		playerShieldUpgrades = 1;
+		playerLaserUpgrades = 1;
+		playerKineticUpgrades = 1;
+		playerMissileUpgrades = 1;
+
+		playerEngineUpgradeCost = (int)math.round(BaseShipStats.shipBaseUpgradeCost);
+		playerArmorUpgradeCost = (int)math.round(BaseShipStats.shipBaseUpgradeCost);
+		playerShieldUpgradeCost = (int)math.round(BaseShipStats.shipBaseUpgradeCost);
+		playerLaserUpgradeCost = (int)math.round(BaseShipStats.shipBaseUpgradeCost);
+		playerKineticUpgradeCost = (int)math.round(BaseShipStats.shipBaseUpgradeCost);
+		playerMissileUpgradeCost = (int)math.round(BaseShipStats.shipBaseUpgradeCost);
+
+	}
 
 	// This is a slightly modified version of public static Vector3 operator *(Quaternion rotation, Vector3 point)
 	public static double3 ApplyRotation(quaternion rotation, double3 point)

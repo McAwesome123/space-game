@@ -74,7 +74,7 @@ public readonly partial struct MoveShipAspect : IAspect
 		double currentVelocity = math.length(physicsVelocity.ValueRO.Linear);
 
 		// Calculate the translation acceleration multiplier then use it to clamp forward/backward acceleration multiplier.
-		double2 translationMult = new(shipMovement.ValueRO.horizontalTranslationMult * BaseShipStats.baseTranslationMult, shipMovement.ValueRO.verticalTranslationMult * BaseShipStats.baseTranslationMult);
+		double2 translationMult = new(shipMovement.ValueRO.horizontalTranslationMult * shipStats.ValueRO.translation, shipMovement.ValueRO.verticalTranslationMult * shipStats.ValueRO.translation);
 		double accelerationClamp = math.sqrt(1 - translationMult.x * translationMult.x - translationMult.y * translationMult.y);
 
 		// Calculate the intended xyz velocity change and apply it.

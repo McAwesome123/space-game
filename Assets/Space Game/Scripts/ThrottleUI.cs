@@ -18,7 +18,7 @@ public class ThrottleUI : MonoBehaviour
 	{
 		throttleSlider = GetComponentInChildren<Slider>();
 		throttleText = throttleSlider.GetComponentInChildren<TMP_Text>();
-		NativeArray<Entity> entityArray = World.DefaultGameObjectInjectionWorld.EntityManager.CreateEntityQuery(typeof(PlayerMoveObj), typeof(ShipMovement)).ToEntityArray(Allocator.Persistent);
+		NativeArray<Entity> entityArray = World.DefaultGameObjectInjectionWorld.EntityManager.CreateEntityQuery(typeof(PlayerMoveObj), typeof(ShipMovement)).ToEntityArray(Allocator.Temp);
 		if (entityArray.Length > 0)
 		{
 			playerShip = entityArray[0];
