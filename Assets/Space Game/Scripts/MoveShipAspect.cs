@@ -98,5 +98,20 @@ public readonly partial struct MoveShipAspect : IAspect
 		//	Debug.Log("Match = True");
 		//else
 		//	Debug.LogWarning("Match = False");
+
+		CapSpeed();
+	}
+
+	public void CapSpeed()
+	{
+		if (math.length(physicsVelocity.ValueRO.Linear) > shipStats.ValueRO.maxSpeed)
+		{
+			double mult = shipStats.ValueRO.maxSpeed / math.length(physicsVelocity.ValueRO.Linear) * 0.99999;
+			double3 newVelocity = (double3)physicsVelocity.ValueRO.Linear * mult;
+			physicsVelocity.ValueRW.Linear = (float3)newVelocity;
+			// I have no clue if converting to a double is necessary
+			// What I do know is that I despise float precision and do not feel like taking chances
+			// Plus, ideally this should not be ran much (if at all)
+		}
 	}
 }

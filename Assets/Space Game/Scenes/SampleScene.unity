@@ -3125,16 +3125,16 @@ MonoBehaviour:
   playerSectorsPassed: 0
   playerEngineUpgrades: 1
   playerArmorUpgrades: 1
-  playerShieldUpgrades: 1
-  playerLaserUpgrades: 1
+  playerShieldUpgrades: 0
+  playerLaserUpgrades: 0
   playerKineticUpgrades: 1
-  playerMissileUpgrades: 1
-  playerEngineUpgradeCost: 1
-  playerArmorUpgradeCost: 1
-  playerShieldUpgradeCost: 1
-  playerLaserUpgradeCost: 1
-  playerKineticUpgradeCost: 1
-  playerMissileUpgradeCost: 1
+  playerMissileUpgrades: 0
+  playerEngineUpgradeCost: 50
+  playerArmorUpgradeCost: 50
+  playerShieldUpgradeCost: 50
+  playerLaserUpgradeCost: 50
+  playerKineticUpgradeCost: 50
+  playerMissileUpgradeCost: 50
 --- !u!4 &802951650
 Transform:
   m_ObjectHideFlags: 0

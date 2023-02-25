@@ -21,11 +21,14 @@ public struct BaseShipStats : IComponentData
 	public const float baseAccelerationChange = 0.01f;
 
 	public const float baseShipHull = 100.0f;
-	public const float baseShipArmor = 0.0f;
-	public const float baseShipShield = 0.0f;
+	public const float baseShipArmor = 10.0f;
+	public const float baseShipShield = 10.0f;
 	public const float shipArmorProtection = 1 - 0.01f;
 	public const float shipShieldProtection = 1 - 0.01f;
-	public const float shipShieldAbsorptionFactor = 1 / 3f;		// Shield takes this percent of absorbed damage
+	public const float shipShieldAbsorptionFactor = 1 / 3f;         // Shield takes this percent of absorbed damage
+	public const float shipShieldRegenFastPercent = 0.01f / Global.tickRate;
+	public const float shipShieldRegenSlowPercent = 0.001f / Global.tickRate;
+	public const float shipShieldRegenFastDelay = 30 * Global.tickRate;
 
 	public const float baseShipLaserDamage = 20.0f;
 	public const float baseShipLaserCooldown = 15 * Global.tickRate;
@@ -43,6 +46,7 @@ public struct BaseShipStats : IComponentData
 	public const int baseShipMissileShotsPerFire = 1;
 	public const int baseShipMissileTicksPerShot = baseShipMissileShotsPerFire / (1 * Global.tickRate);
 
+	// Formula: (Base + Add * Levels) * Mult^Levels
 	public const float shipArmorPerUpgradeLevelAdd = 10.0f;
 	public const float shipArmorPerUpgradeLevelMult = 1 + 0.0f;
 	public const float shipShieldPerUpgradeLevelAdd = 10.0f;
@@ -54,7 +58,7 @@ public struct BaseShipStats : IComponentData
 	public const float shipMissileDamagePerUpgradeLevelAdd = 0.0f;
 	public const float shipMissileDamagePerUpgradeLevelMult = 1 + 0.1f;
 
-	// Formula: Base * (1 + HyperbolicAdd * (HyperbolicFactor * x) / (1 + HyperbolicFactor * x))
+	// Formula: Base * (1 + HyperbolicAdd * (HyperbolicFactor * Levels) / (1 + HyperbolicFactor * Levels))
 	// The following factors are chosen for a +10% increase for the first upgrade
 	public const float shipMaxSpeedPerUpgradeLevelHyperbloicAdd = 99.0f;
 	public const float shipMaxSpeedPerUpgradeLevelHyperbloicFactor = 1 / 989f;
@@ -99,7 +103,7 @@ public struct BaseShipStats : IComponentData
 
 	public const float shipBaseUpgradeCost = 50.0f;
 	public const float shipUpgradeCostMin = 5.0f;
-	public const float shipUpgradeCostPerLevelAdd = 10.0f;
-	public const float shipUpgradeCostPerOtherLevelAdd = -5.0f;
+	public const float shipUpgradeCostPerLevelAdd = 2.0f;
+	public const float shipUpgradeCostPerOtherLevelAdd = -1.0f;
 	public const float shipUpgradeCostPerSectorFactor = 1 - 0.2f;
 }

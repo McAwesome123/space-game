@@ -48,7 +48,7 @@ public class ShipStatsAuthoring : MonoBehaviour
 	public float maxShieldAmount = BaseShipStats.baseShipShield;
 	public float currentHullPoints = BaseShipStats.baseShipHull;
 	public float currentArmorAmount = BaseShipStats.baseShipArmor;
-	public float currentShieldAmount = BaseShipStats.baseShipHull;
+	public float currentShieldAmount = BaseShipStats.baseShipShield;
 
 	public int shipEngineUpgrades = BaseShipStats.baseShipEngineUpgrades;
 	public int shipArmorUpgrades = BaseShipStats.baseShipArmorUpgrades;
@@ -86,6 +86,13 @@ public class ShipAccelerationBaker : Baker<ShipStatsAuthoring>
 			currentHullPoints = authoring.currentHullPoints,
 			currentArmorAmount = authoring.currentArmorAmount,
 			currentShieldAmount = authoring.currentShieldAmount,
+
+			shipEngineUpgrades = authoring.shipEngineUpgrades,
+			shipArmorUpgrades = authoring.shipArmorUpgrades,
+			shipShieldUpgrades = authoring.shipShieldUpgrades,
+			shipLaserUpgrades = authoring.shipLaserUpgrades,
+			shipKineticUpgrades = authoring.shipKineticUpgrades,
+			shipMissileUpgrades = authoring.shipMissileUpgrades,
 
 			shipLaserDamage = authoring.shipLaserDamage,
 			shipLaserCooldown = authoring.shipLaserCooldown,

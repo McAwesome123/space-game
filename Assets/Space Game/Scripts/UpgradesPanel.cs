@@ -9,6 +9,8 @@ using UnityEngine.UI;
 
 public class UpgradesPanel : MonoBehaviour
 {
+	public const float toolTipFade = 0.5f;
+
 	public Button upgradeEngine;
 	public Button upgradeArmor;
 	public Button upgradeShield;
@@ -87,12 +89,12 @@ public class UpgradesPanel : MonoBehaviour
 		upgradeKineticLevels.text = string.Format("Kinetic\nLevel:\n{0}", global.playerKineticUpgrades);
 		upgradeMissileLevels.text = string.Format("Missile\nLevel:\n{0}", global.playerMissileUpgrades);
 
-		upgradeEngineCost.text = string.Format("Cost:\n{0}", math.max(global.playerEngineUpgradeCost, BaseShipStats.shipUpgradeCostMin));
-		upgradeArmorCost.text = string.Format("Cost:\n{0}", math.max(global.playerArmorUpgradeCost, BaseShipStats.shipUpgradeCostMin));
-		upgradeShieldCost.text = string.Format("Cost:\n{0}", math.max(global.playerShieldUpgradeCost, BaseShipStats.shipUpgradeCostMin));
-		upgradeLaserCost.text = string.Format("Cost:\n{0}", math.max(global.playerLaserUpgradeCost, BaseShipStats.shipUpgradeCostMin));
-		upgradeKineticCost.text = string.Format("Cost:\n{0}", math.max(global.playerKineticUpgradeCost, BaseShipStats.shipUpgradeCostMin));
-		upgradeMissileCost.text = string.Format("Cost:\n{0}", math.max(global.playerMissileUpgradeCost, BaseShipStats.shipUpgradeCostMin));
+		upgradeEngineCost.text = string.Format("Cost:\n{0}", global.playerEngineUpgrades > 0 ? math.max(global.playerEngineUpgradeCost, BaseShipStats.shipUpgradeCostMin) : "N/A");
+		upgradeArmorCost.text = string.Format("Cost:\n{0}", global.playerArmorUpgrades > 0 ? math.max(global.playerArmorUpgradeCost, BaseShipStats.shipUpgradeCostMin) : "N/A");
+		upgradeShieldCost.text = string.Format("Cost:\n{0}", global.playerShieldUpgrades > 0 ? math.max(global.playerShieldUpgradeCost, BaseShipStats.shipUpgradeCostMin) : "N/A");
+		upgradeLaserCost.text = string.Format("Cost:\n{0}", global.playerLaserUpgrades > 0 ? math.max(global.playerLaserUpgradeCost, BaseShipStats.shipUpgradeCostMin) : "N/A");
+		upgradeKineticCost.text = string.Format("Cost:\n{0}", global.playerKineticUpgrades > 0 ? math.max(global.playerKineticUpgradeCost, BaseShipStats.shipUpgradeCostMin) : "N/A");
+		upgradeMissileCost.text = string.Format("Cost:\n{0}", global.playerMissileUpgrades > 0 ? math.max(global.playerMissileUpgradeCost, BaseShipStats.shipUpgradeCostMin) : "N/A");
 
 		upgradeEngine.interactable = global.playerResources >= global.playerEngineUpgradeCost && global.playerEngineUpgrades > 0;
 		upgradeArmor.interactable = global.playerResources >= global.playerArmorUpgradeCost && global.playerArmorUpgrades > 0;
