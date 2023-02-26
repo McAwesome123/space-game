@@ -4,9 +4,92 @@ using Unity.Entities;
 using Unity.Mathematics;
 using UnityEngine;
 
-public struct Global : IComponentData
+public class Global : MonoBehaviour
 {
 	public const int tickRate = 100;
+
+	public bool recalculateStats;
+	public bool initializePlayerStats;
+
+	public int playerResources;
+	public int playerSectorsPassed;
+	public byte gamePaused;
+
+	public float currentHullPoints;
+	public float currentArmorAmount;
+	public float currentShieldAmount;
+
+	public int playerEngineUpgrades;
+	public int playerArmorUpgrades;
+	public int playerShieldUpgrades;
+	public int playerLaserUpgrades;
+	public int playerKineticUpgrades;
+	public int playerMissileUpgrades;
+
+	public int playerEngineUpgradeCost;
+	public int playerArmorUpgradeCost;
+	public int playerShieldUpgradeCost;
+	public int playerLaserUpgradeCost;
+	public int playerKineticUpgradeCost;
+	public int playerMissileUpgradeCost;
+
+	public float shipLaserDamage;
+	public float shipLaserCooldown;
+	public float shipLaserShotSpeed;
+	public float shipKineticDamage;
+	public float shipKineticCooldown;
+	public float shipKineticShotSpeed;
+	public float shipMissileDamage;
+	public float shipMissileCooldown;
+	public float shipMissileShotSpeed;
+
+	public enum PauseTypes
+	{
+		NoPause =	0b00000000,
+		PlayerPause =	0b00000001,
+		MenuPause =	0b00000010,
+		CutscenePause =	0b00000100,
+	};
+
+	private void Start()
+	{
+		DontDestroyOnLoad(this.gameObject);
+
+		recalculateStats = true;
+		initializePlayerStats = true;
+
+		playerResources = 100;
+		playerSectorsPassed = 0;
+		gamePaused = 0;
+
+		currentHullPoints = BaseShipStats.baseShipHull;
+		currentArmorAmount = BaseShipStats.baseShipArmor;
+		currentShieldAmount = BaseShipStats.baseShipShield;
+
+		playerEngineUpgrades = BaseShipStats.baseShipEngineUpgrades;
+		playerArmorUpgrades = BaseShipStats.baseShipArmorUpgrades;
+		playerShieldUpgrades = BaseShipStats.baseShipShieldUpgrades;
+		playerLaserUpgrades = BaseShipStats.baseShipLaserUpgrades;
+		playerKineticUpgrades = BaseShipStats.baseShipKineticUpgrades;
+		playerMissileUpgrades = BaseShipStats.baseShipMissileUpgrades;
+
+		playerEngineUpgradeCost = (int)math.round(BaseShipStats.shipBaseUpgradeCost);
+		playerArmorUpgradeCost = (int)math.round(BaseShipStats.shipBaseUpgradeCost);
+		playerShieldUpgradeCost = (int)math.round(BaseShipStats.shipBaseUpgradeCost);
+		playerLaserUpgradeCost = (int)math.round(BaseShipStats.shipBaseUpgradeCost);
+		playerKineticUpgradeCost = (int)math.round(BaseShipStats.shipBaseUpgradeCost);
+		playerMissileUpgradeCost = (int)math.round(BaseShipStats.shipBaseUpgradeCost);
+
+		shipLaserDamage = BaseShipStats.baseShipLaserDamage;
+		shipLaserCooldown = BaseShipStats.baseShipLaserCooldown;
+		shipLaserShotSpeed = BaseShipStats.baseShipLaserShotSpeed;
+		shipKineticDamage = BaseShipStats.baseShipKineticDamage;
+		shipKineticCooldown = BaseShipStats.baseShipKineticCooldown;
+		shipKineticShotSpeed = BaseShipStats.baseShipKineticShotSpeed;
+		shipMissileDamage = BaseShipStats.baseShipMissileDamage;
+		shipMissileCooldown = BaseShipStats.baseShipMissileCooldown;
+		shipMissileShotSpeed = BaseShipStats.baseShipMissileShotSpeed;
+	}
 
 	// This is a slightly modified version of public static Vector3 operator *(Quaternion rotation, Vector3 point)
 	public static double3 ApplyRotation(quaternion rotation, double3 point)

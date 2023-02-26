@@ -184,6 +184,30 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 645122504978885059, guid: 9a311c5fc47566742a911e9c34b34064, type: 3}
+      propertyPath: m_Name
+      value: StarSparrow_Weapon_Missile
+      objectReference: {fileID: 0}
+    - target: {fileID: 1571613371991686310, guid: 9a311c5fc47566742a911e9c34b34064, type: 3}
+      propertyPath: m_Name
+      value: StarSparrow_Weapon_Kinetic
+      objectReference: {fileID: 0}
+    - target: {fileID: 4346143285047798209, guid: 9a311c5fc47566742a911e9c34b34064, type: 3}
+      propertyPath: m_Name
+      value: StarSparrow_Weapon_Kinetic_Mirrored
+      objectReference: {fileID: 0}
+    - target: {fileID: 5864767316379490443, guid: 9a311c5fc47566742a911e9c34b34064, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6366233219017449723, guid: 9a311c5fc47566742a911e9c34b34064, type: 3}
+      propertyPath: m_Name
+      value: StarSparrow_Weapon_Laser
+      objectReference: {fileID: 0}
+    - target: {fileID: 6955431942653342488, guid: 9a311c5fc47566742a911e9c34b34064, type: 3}
+      propertyPath: m_Name
+      value: StarSparrow_Weapon_Missile_Mirrored
+      objectReference: {fileID: 0}
     - target: {fileID: 8000352351091312640, guid: 9a311c5fc47566742a911e9c34b34064, type: 3}
       propertyPath: m_Name
       value: PlayerShip
@@ -232,8 +256,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8902072204493489225, guid: 9a311c5fc47566742a911e9c34b34064, type: 3}
+      propertyPath: m_Name
+      value: StarSparrow_Weapon_Laser_Mirrored
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 5402209833053556424, guid: 9a311c5fc47566742a911e9c34b34064, type: 3}
+    - {fileID: 4171578089099497693, guid: 9a311c5fc47566742a911e9c34b34064, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9a311c5fc47566742a911e9c34b34064, type: 3}
