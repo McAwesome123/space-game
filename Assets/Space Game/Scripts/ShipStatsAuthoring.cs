@@ -16,7 +16,9 @@ public struct ShipStats : IComponentData
 	public float maxShieldAmount;
 	public float currentHullPoints;
 	public float currentArmorAmount;
+	public float currentDamageArmorAmount;
 	public float currentShieldAmount;
+	public long shieldRegenTime;
 
 	public int shipEngineUpgrades;
 	public int shipArmorUpgrades;
@@ -34,6 +36,13 @@ public struct ShipStats : IComponentData
 	public float shipMissileDamage;
 	public float shipMissileCooldown;
 	public float shipMissileShotSpeed;
+
+	public float shipLaserCharge;
+	public float shipKineticCharge;
+	public float shipMissileCharge;
+	public float shipLaserFire;
+	public float shipKineticFire;
+	public float shipMissileFire;
 }
 public class ShipStatsAuthoring : MonoBehaviour
 {
@@ -48,7 +57,9 @@ public class ShipStatsAuthoring : MonoBehaviour
 	public float maxShieldAmount = BaseShipStats.baseShipShield;
 	public float currentHullPoints = BaseShipStats.baseShipHull;
 	public float currentArmorAmount = BaseShipStats.baseShipArmor;
+	public float currentDamageArmorAmount = BaseShipStats.shipPlayerDamageArmorBase;
 	public float currentShieldAmount = BaseShipStats.baseShipShield;
+	public long shieldRegenTime = BaseShipStats.shipShieldRegenFastDelay;
 
 	public int shipEngineUpgrades = BaseShipStats.baseShipEngineUpgrades;
 	public int shipArmorUpgrades = BaseShipStats.baseShipArmorUpgrades;
@@ -66,6 +77,13 @@ public class ShipStatsAuthoring : MonoBehaviour
 	public float shipMissileDamage = BaseShipStats.baseShipMissileDamage;
 	public float shipMissileCooldown = BaseShipStats.baseShipMissileCooldown;
 	public float shipMissileShotSpeed = BaseShipStats.baseShipMissileShotSpeed;
+
+	public float shipLaserCharge = 0;
+	public float shipKineticCharge = 0;
+	public float shipMissileCharge = 0;
+	public float shipLaserFire = 0;
+	public float shipKineticFire = 0;
+	public float shipMissileFire = 0;
 }
 
 public class ShipAccelerationBaker : Baker<ShipStatsAuthoring>
@@ -85,7 +103,9 @@ public class ShipAccelerationBaker : Baker<ShipStatsAuthoring>
 			maxShieldAmount = authoring.maxShieldAmount,
 			currentHullPoints = authoring.currentHullPoints,
 			currentArmorAmount = authoring.currentArmorAmount,
+			currentDamageArmorAmount = authoring.currentDamageArmorAmount,
 			currentShieldAmount = authoring.currentShieldAmount,
+			shieldRegenTime = authoring.shieldRegenTime,
 
 			shipEngineUpgrades = authoring.shipEngineUpgrades,
 			shipArmorUpgrades = authoring.shipArmorUpgrades,
@@ -103,6 +123,13 @@ public class ShipAccelerationBaker : Baker<ShipStatsAuthoring>
 			shipMissileDamage = authoring.shipMissileDamage,
 			shipMissileCooldown = authoring.shipMissileCooldown,
 			shipMissileShotSpeed = authoring.shipMissileShotSpeed,
+
+			shipLaserCharge = authoring.shipLaserCharge,
+			shipKineticCharge = authoring.shipKineticCharge,
+			shipMissileCharge = authoring.shipMissileCharge,
+			shipLaserFire = authoring.shipLaserFire,
+			shipKineticFire = authoring.shipKineticFire,
+			shipMissileFire = authoring.shipMissileFire,
 		});
 	}
 }

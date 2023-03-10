@@ -4,9 +4,38 @@ using Unity.Entities;
 using Unity.Mathematics;
 using UnityEngine;
 
+public class Star
+{
+	public int x = 0;
+	public int y = 0;
+	public int scale = 100;
+	public bool alreadyVisited = false;
+	public bool canJumpSector = false;
+	public uint nextSectorSeed = 1;
+	public Unity.Mathematics.Random random = new();
+
+	public Star()
+	{
+		random = new Unity.Mathematics.Random(1);
+	}
+
+	public Star(int x, int y, int scale)
+	{
+		this.x = x;
+		this.y = y;
+		this.scale = scale;
+	}
+}
+
 public class Global : MonoBehaviour
 {
 	public const int tickRate = 100;
+	public const int minNumStars = 28;
+	public const int maxNumStars = 35;
+
+	public int numStars;
+	public Star[] stars;
+	public Star currentStar = new();
 
 	public bool recalculateStats;
 	public bool initializePlayerStats;
@@ -43,6 +72,9 @@ public class Global : MonoBehaviour
 	public float shipMissileCooldown;
 	public float shipMissileShotSpeed;
 
+	public ulong ticksPassed;
+	public ulong ticksPassedInSector;
+
 	public enum PauseTypes
 	{
 		NoPause =	0b00000000,
@@ -53,12 +85,18 @@ public class Global : MonoBehaviour
 
 	private void Start()
 	{
+		Debug.Log("Global Initialized");
 		DontDestroyOnLoad(this.gameObject);
+
+		numStars = 0;
+		stars = new Star[maxNumStars];
+		currentStar = new();
+		currentStar.random = new Unity.Mathematics.Random(1);
 
 		recalculateStats = true;
 		initializePlayerStats = true;
 
-		playerResources = 100;
+		playerResources = BaseShipStats.shipStartingResources;
 		playerSectorsPassed = 0;
 		gamePaused = 0;
 
@@ -89,6 +127,117 @@ public class Global : MonoBehaviour
 		shipMissileDamage = BaseShipStats.baseShipMissileDamage;
 		shipMissileCooldown = BaseShipStats.baseShipMissileCooldown;
 		shipMissileShotSpeed = BaseShipStats.baseShipMissileShotSpeed;
+
+		ticksPassed = 0;
+		ticksPassedInSector = 0;
+	}
+
+	private void FixedUpdate()
+	{
+		if (gamePaused != 0)
+		{
+			return;
+		}
+
+		if (ticksPassed < ulong.MaxValue)
+			ticksPassed++;
+
+		if (ticksPassedInSector < ulong.MaxValue)
+			ticksPassedInSector++;
+	}
+
+	public void GenerateSector(uint seed)
+	{
+		const int minX = -270;
+		const int maxX = 270;
+		const int startX = -260;
+		const int minY = -90;
+		const int maxY = 130;
+		const int startY = -80;
+		const int stepX = 40;
+		const int stepY = 40;
+		const int stepsX = 14;
+		const int stepsY = 6;
+		const int minVarianceX = -15;
+		const int maxVarianceX = 15;
+		const int minVarianceY = -15;
+		const int maxVarianceY = 15;
+		const int scaleVariance = 40;
+		const int minScale = 60;
+		const int maxScale = 120;
+		const int normalScale = 100;
+
+		Unity.Mathematics.Random random = new(seed);
+
+		numStars = random.NextInt(minNumStars, maxNumStars + 1);
+
+		for (int x = 0; x < numStars; x++)
+		{
+			bool isUnique = false;
+			for (int loop = 0; loop < 1000 && !isUnique; loop++)
+			{
+				isUnique = true;
+				int scale = random.NextInt(normalScale - scaleVariance, normalScale + scaleVariance + 1);
+				if (scale > normalScale)
+				{
+					scale = (int)(normalScale + (scale - normalScale) * ((maxScale - normalScale) / (float)scaleVariance)); // I love integer division (/s)
+				}
+				else
+				{
+					scale = (int)(normalScale + (scale - normalScale) * ((normalScale - minScale) / (float)scaleVariance)); // Same as above
+				}
+				stars[x] = new Star(random.NextInt(0, stepsX) * stepX + startX,
+							random.NextInt(0, stepsY) * stepY + startY,
+							scale);
+				for (int y = 0; y < x; y++)
+				{
+					if (stars[y].x == stars[x].x && stars[y].y == stars[x].y)
+					{
+						isUnique = false;
+						break;
+					}
+				}
+				if (loop == 999)
+				{
+					Debug.LogError("Too many loops!");
+				}
+			}
+			stars[x].random = new Unity.Mathematics.Random(random.NextUInt() + 1);
+		}
+		for (int x = 0; x < numStars; x++)
+		{
+			stars[x].x += random.NextInt(minVarianceX, maxVarianceX + 1);
+			stars[x].y += random.NextInt(minVarianceY, maxVarianceY + 1);
+
+			if (stars[x].x > maxX)
+			{
+				stars[x].x = maxX;
+			}
+			else if(stars[x].x < minX)
+			{
+				stars[x].x = minX;
+			}
+			if (stars[x].y > maxY)
+			{
+				stars[x].y = maxY;
+			}
+			else if (stars[x].y < minY)
+			{
+				stars[x].y = minY;
+			}
+
+			if (x == 0)
+			{
+				currentStar = stars[x];
+			}
+			else if (x <= 3)
+			{
+				stars[x].canJumpSector = random.NextFloat() < 1.0f / x;
+				stars[x].nextSectorSeed = random.NextUInt() + 1;
+			}
+		}
+
+		Debug.Log(string.Format("Generated sector with seed {0}", seed));
 	}
 
 	// This is a slightly modified version of public static Vector3 operator *(Quaternion rotation, Vector3 point)

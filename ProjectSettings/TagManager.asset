@@ -6,6 +6,7 @@ TagManager:
   tags:
   - CameraFollow
   - Global
+  - Enemy
   layers:
   - Default
   - TransparentFX
