@@ -8,10 +8,16 @@ using UnityEngine;
 public readonly partial struct ShipDamageEnemyAspect : IAspect
 {
 	public readonly RefRW<ShipStats> shipStats;
+	public readonly CollisionAspect collisionAspect;
 	public readonly RefRO<EnemyShipObj> enemy;
 
 	public void TakeDamageEnemy(float damage, bool isLaser)
 	{
+		if (damage <= 0)
+		{
+			return;
+		}
+
 		float dealtDamage = damage;
 
 		if (isLaser)
@@ -29,10 +35,16 @@ public readonly partial struct ShipDamageEnemyAspect : IAspect
 public readonly partial struct ShipDamagePlayerAspect : IAspect
 {
 	public readonly RefRW<ShipStats> shipStats;
+	public readonly CollisionAspect collisionAspect;
 	public readonly RefRO<PlayerMoveObj> player;
 
 	public void TakeDamagePlayer(float damage, bool isLaser)
 	{
+		if (damage <= 0)
+		{
+			return;
+		}
+
 		float dealtDamage = damage;
 
 		if (isLaser)
@@ -55,7 +67,7 @@ public readonly partial struct ShipDamagePlayerAspect : IAspect
 			float addDamageArmor = BaseShipStats.shipPlayerArmorAdd * BaseShipStats.shipPlayerDamageTick / shipStats.ValueRO.currentHullPoints / BaseShipStats.shipPlayerArmorAddPerHullDamagePercent;
 			shipStats.ValueRW.currentHullPoints -= BaseShipStats.shipPlayerDamageTick;
 			damageLeft -= BaseShipStats.shipPlayerDamageTick;
-			damage *= math.pow(BaseShipStats.shipArmorProtection, addDamageArmor);
+			damageLeft *= math.pow(BaseShipStats.shipArmorProtection, addDamageArmor);
 			shipStats.ValueRW.currentDamageArmorAmount += addDamageArmor;
 		}
 
@@ -75,5 +87,7 @@ public readonly partial struct ShipDamagePlayerAspect : IAspect
 			shipStats.ValueRW.currentHullPoints -= damageLeft;
 			shipStats.ValueRW.currentDamageArmorAmount += addDamageArmor;
 		}
+
+		shipStats.ValueRW.damageArmorDecayBuffer = BaseShipStats.shipPlayerDamageArmorDecayBuffer;
 	}
 }

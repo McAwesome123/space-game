@@ -90,6 +90,7 @@ public struct BaseShipStats : IComponentData
 	public const float shipPlayerArmorAdd = 1.0f;
 	public const float shipPlayerArmorAddPerHullDamagePercent = 0.01f;			// Percent of current hull
 	public const float shipPlayerDamageArmorDecayPerTick = 0.1f;
+	public const float shipPlayerDamageArmorDecayPercentPerTick = 1 - 0.001f;
 	public const float shipPlayerDestructionMinDamageMult = 10.0f;				// The player ship must take at least (current hull * this) amount of damage to be destroyed
 	public const int shipPlayerDamageArmorDecayBuffer = 2 * Global.tickRate;
 

@@ -24,15 +24,15 @@ public partial class ShipRecalculateStatsSystem : SystemBase
 	{
 		if (global.global.recalculateStats)
 		{
-			Entities.ForEach((ref ShipStats stats, in PlayerMoveObj player) =>
+			foreach((RefRW<ShipStats> stats, RefRO<PlayerMoveObj> player) in SystemAPI.Query<RefRW<ShipStats>, RefRO<PlayerMoveObj>>())
 			{
-				stats.shipEngineUpgrades = global.global.playerEngineUpgrades;
-				stats.shipArmorUpgrades = global.global.playerArmorUpgrades;
-				stats.shipShieldUpgrades = global.global.playerShieldUpgrades;
-				stats.shipLaserUpgrades = global.global.playerLaserUpgrades;
-				stats.shipKineticUpgrades = global.global.playerKineticUpgrades;
-				stats.shipMissileUpgrades = global.global.playerMissileUpgrades;
-			}).WithoutBurst().Run();
+				stats.ValueRW.shipEngineUpgrades = global.global.playerEngineUpgrades;
+				stats.ValueRW.shipArmorUpgrades = global.global.playerArmorUpgrades;
+				stats.ValueRW.shipShieldUpgrades = global.global.playerShieldUpgrades;
+				stats.ValueRW.shipLaserUpgrades = global.global.playerLaserUpgrades;
+				stats.ValueRW.shipKineticUpgrades = global.global.playerKineticUpgrades;
+				stats.ValueRW.shipMissileUpgrades = global.global.playerMissileUpgrades;
+			}
 
 			Entities.ForEach((ref ShipStats stats) =>
 			{

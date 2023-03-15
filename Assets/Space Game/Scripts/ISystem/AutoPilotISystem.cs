@@ -38,7 +38,9 @@ public partial struct AutoPilotISystem : ISystem
 			return;
 		}
 
-		new AutoPilotAssignRandom { random = random.random }.Run();
+		new AutoPilotAssignRandomJob { random = random.random }.Run();
+
+		new EnemyDisableAutoPilotJob { }.ScheduleParallel();
 
 		new GenerateAutoPilotJob { }.ScheduleParallel();
 
@@ -68,7 +70,7 @@ public partial struct AutoPilotISystem : ISystem
 
 [UpdateInGroup(typeof(FixedStepSimulationSystemGroup))]
 #pragma warning disable CS0282 // There is no defined ordering between fields in multiple declarations of partial struct
-public partial struct AutoPilotAssignRandom : IJobEntity
+public partial struct AutoPilotAssignRandomJob : IJobEntity
 #pragma warning restore CS0282 // There is no defined ordering between fields in multiple declarations of partial struct
 {
 	public Unity.Mathematics.Random random;
@@ -141,9 +143,15 @@ public partial struct EnemyFireJob : IJobEntity
 
 	public void Execute(ref ShipAutoPilot shipAutoPilot, ref ShipMovement shipMovement, ref ShipStats shipStats, ref EnemyShipObj enemy, ref TransformAspect transformAspect)
 	{
+
 		shipStats.shipLaserCharge++;
 		shipStats.shipKineticCharge++;
 		shipStats.shipMissileCharge++;
+
+		if (!enemy.shipIsHostile)
+		{
+			return;
+		}
 
 		if (shipStats.shipLaserUpgrades > 0 && !enemy.shipFiringMissile && !enemy.shipFiringKinetic && !enemy.shipFiringLaser && shipStats.shipLaserCharge >= shipStats.shipLaserCooldown * 0.9f)
 		{
@@ -166,6 +174,8 @@ public partial struct EnemyFireJob : IJobEntity
 			shipAutoPilot.autoPilotPaused = true;
 		}
 
+		/* Commented due to error below that I'm unable to figure out
+
 		float shotSpeed;
 
 		if (enemy.shipFiringLaser)
@@ -180,15 +190,14 @@ public partial struct EnemyFireJob : IJobEntity
 		{
 			shotSpeed = shipStats.shipMissileShotSpeed;
 		}
-		//else
+		else
 		{
 			return;
 		}
 
-		/*
-		// Gives "Attempting to read WriteOnly" error
 		shotSpeed /= Global.tickRate;	// Units per tick
-
+		
+		// Gives "Attempting to read WriteOnly" error
 		float timeToReach = math.distance(playerTransform.WorldPosition, transformAspect.WorldPosition) / shotSpeed;	// Time in ticks
 		float3 predictedPosition = playerTransform.WorldPosition + playerVelocity.Linear / Global.tickRate * timeToReach;
 
@@ -198,5 +207,26 @@ public partial struct EnemyFireJob : IJobEntity
 			Debug.Log("Ship rotated!");
 		}
 		*/
+	}
+}
+
+[UpdateInGroup(typeof(FixedStepSimulationSystemGroup))]
+public partial struct EnemyDisableAutoPilotJob : IJobEntity
+{
+	public void Execute(ref ShipMovement shipMovement, ref ShipAutoPilot autoPilot, in EnemyShipObj enemy)
+	{
+		if (enemy.shipIsHostile)
+		{
+			autoPilot.autoPilotPaused = false;
+
+			shipMovement.currentAccelerationMult = 0;
+			shipMovement.pitchMult = 0;
+			shipMovement.yawMult = 0;
+			shipMovement.rollMult = 0;
+		}
+		else
+		{
+			autoPilot.autoPilotPaused = true;
+		}
 	}
 }

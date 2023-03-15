@@ -16,9 +16,11 @@ public struct ShipStats : IComponentData
 	public float maxShieldAmount;
 	public float currentHullPoints;
 	public float currentArmorAmount;
-	public float currentDamageArmorAmount;
 	public float currentShieldAmount;
 	public long shieldRegenTime;
+
+	public float currentDamageArmorAmount;
+	public int damageArmorDecayBuffer;
 
 	public int shipEngineUpgrades;
 	public int shipArmorUpgrades;
@@ -57,9 +59,11 @@ public class ShipStatsAuthoring : MonoBehaviour
 	public float maxShieldAmount = BaseShipStats.baseShipShield;
 	public float currentHullPoints = BaseShipStats.baseShipHull;
 	public float currentArmorAmount = BaseShipStats.baseShipArmor;
-	public float currentDamageArmorAmount = BaseShipStats.shipPlayerDamageArmorBase;
 	public float currentShieldAmount = BaseShipStats.baseShipShield;
 	public long shieldRegenTime = BaseShipStats.shipShieldRegenFastDelay;
+
+	public float currentDamageArmorAmount = BaseShipStats.shipPlayerDamageArmorBase;
+	public int damageArmorDecayBuffer = BaseShipStats.shipPlayerDamageArmorDecayBuffer;
 
 	public int shipEngineUpgrades = BaseShipStats.baseShipEngineUpgrades;
 	public int shipArmorUpgrades = BaseShipStats.baseShipArmorUpgrades;
@@ -103,9 +107,11 @@ public class ShipAccelerationBaker : Baker<ShipStatsAuthoring>
 			maxShieldAmount = authoring.maxShieldAmount,
 			currentHullPoints = authoring.currentHullPoints,
 			currentArmorAmount = authoring.currentArmorAmount,
-			currentDamageArmorAmount = authoring.currentDamageArmorAmount,
 			currentShieldAmount = authoring.currentShieldAmount,
 			shieldRegenTime = authoring.shieldRegenTime,
+
+			currentDamageArmorAmount = authoring.currentDamageArmorAmount,
+			damageArmorDecayBuffer = authoring.damageArmorDecayBuffer,
 
 			shipEngineUpgrades = authoring.shipEngineUpgrades,
 			shipArmorUpgrades = authoring.shipArmorUpgrades,

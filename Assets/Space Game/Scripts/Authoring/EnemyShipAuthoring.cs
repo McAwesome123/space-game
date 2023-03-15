@@ -7,6 +7,8 @@ using UnityEngine;
 public struct EnemyShipObj : IComponentData
 {
 	public bool shipInitializeStats;
+	public bool shipIsHostile;
+
 	public bool shipFiringLaser;
 	public bool shipFiringKinetic;
 	public bool shipFiringMissile;
@@ -18,6 +20,8 @@ public struct EnemyShipObj : IComponentData
 public class EnemyShipAuthoring : MonoBehaviour
 {
 	public bool shipInitializeStats = true;
+	public bool shipIsHostile = true;
+
 	public bool shipFiringLaser = false;
 	public bool shipFiringKinetic = false;
 	public bool shipFiringMissile = false;
@@ -33,10 +37,13 @@ public class EnemyShipBaker : Baker<EnemyShipAuthoring>
 		AddComponent(new EnemyShipObj
 		{
 			shipInitializeStats = authoring.shipInitializeStats,
+			shipIsHostile = authoring.shipIsHostile,
+
 			shipFiringLaser = authoring.shipFiringLaser,
 			shipFiringKinetic = authoring.shipFiringKinetic,
 			shipFiringMissile = authoring.shipFiringMissile,
 			shipFiringTimeLeft = authoring.shipFiringTimeLeft,
+
 			shipReturnRotation = authoring.shipReturnRotation,
 		});
 	}

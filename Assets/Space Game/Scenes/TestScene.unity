@@ -4749,6 +4749,8 @@ MonoBehaviour:
   shipMissileDamage: 0
   shipMissileCooldown: 0
   shipMissileShotSpeed: 0
+  ticksPassed: 0
+  ticksPassedInSector: 0
 --- !u!4 &802951650
 Transform:
   m_ObjectHideFlags: 0

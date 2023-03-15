@@ -75,6 +75,8 @@ public class Global : MonoBehaviour
 	public ulong ticksPassed;
 	public ulong ticksPassedInSector;
 
+	private int heldCancelKey;
+
 	public enum PauseTypes
 	{
 		NoPause =	0b00000000,
@@ -130,10 +132,26 @@ public class Global : MonoBehaviour
 
 		ticksPassed = 0;
 		ticksPassedInSector = 0;
+
+		heldCancelKey = 0;
 	}
 
 	private void FixedUpdate()
 	{
+		if (Input.GetAxis("Cancel") != 0)
+		{
+			heldCancelKey++;
+		}
+		else
+		{
+			heldCancelKey = 0;
+		}
+
+		if (heldCancelKey > 3 * tickRate)
+		{
+			Application.Quit();
+		}
+
 		if (gamePaused != 0)
 		{
 			return;

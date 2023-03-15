@@ -169,8 +169,7 @@ public partial class CreateEnemySystem : SystemBase
 			}
 
 			enemy.ValueRW.shipInitializeStats = false;
+			global.global.recalculateStats = true;
 		}
-
-		global.global.recalculateStats = true;
 	}
 }

@@ -123,6 +123,26 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!114 &158742170
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4362719013409812142}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72e3a196fd413814ea295d415f6e9276, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentVelocity:
+    x: 0
+    y: 0
+    z: 0
+  previousVelocity:
+    x: 0
+    y: 0
+    z: 0
 --- !u!114 &164801189
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1358,6 +1378,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da874192bcad08a47a843fbd0050c346, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shipInitializeStats: 1
+  shipIsHostile: 1
   shipFiringLaser: 0
   shipFiringKinetic: 0
   shipFiringMissile: 0
@@ -1986,6 +2008,8 @@ MonoBehaviour:
   currentArmorAmount: 10
   currentShieldAmount: 10
   shieldRegenTime: 2000
+  currentDamageArmorAmount: 0
+  damageArmorDecayBuffer: 200
   shipEngineUpgrades: 1
   shipArmorUpgrades: 1
   shipShieldUpgrades: 0
@@ -2181,6 +2205,26 @@ MonoBehaviour:
   rollMultNext: 0
   random:
     state: 0
+--- !u!114 &2079363408
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2079363396}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72e3a196fd413814ea295d415f6e9276, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentVelocity:
+    x: 0
+    y: 0
+    z: 0
+  previousVelocity:
+    x: 0
+    y: 0
+    z: 0
 --- !u!1 &2130774953
 GameObject:
   m_ObjectHideFlags: 0
@@ -2263,6 +2307,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 302624018664257917, guid: fcd182a18a88ef14b90d61ba49e6925b, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1371265995}
+    - targetCorrespondingSourceObject: {fileID: 302624018664257917, guid: fcd182a18a88ef14b90d61ba49e6925b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 158742170}
     - targetCorrespondingSourceObject: {fileID: 4266302922991449403, guid: fcd182a18a88ef14b90d61ba49e6925b, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4362719013409812166}
@@ -3214,4 +3261,7 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8000352351091312640, guid: 9a311c5fc47566742a911e9c34b34064, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2079363402}
+    - targetCorrespondingSourceObject: {fileID: 8000352351091312640, guid: 9a311c5fc47566742a911e9c34b34064, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2079363408}
   m_SourcePrefab: {fileID: 100100000, guid: 9a311c5fc47566742a911e9c34b34064, type: 3}
