@@ -22,6 +22,7 @@ public struct PlayerMovementInput : IComponentData
 	public float setAccelerationMax;
 	public float setAccelerationZero;
 	public float setAccelerationMin;
+	public float autoPilotEnable;
 }
 
 [BurstCompile]
@@ -39,6 +40,12 @@ public partial struct MoveShipISystem : ISystem
 	[BurstCompile]
 	public void OnUpdate(ref SystemState state)
 	{
+		byte gamePaused = SystemAPI.GetSingleton<GlobalEntity>().gamePaused;
+		if (gamePaused != 0)
+		{
+			return;
+		}
+
 		PlayerMovementInput input = new()
 		{
 			pitch = Input.GetAxis("Pitch"),
@@ -53,6 +60,7 @@ public partial struct MoveShipISystem : ISystem
 			setAccelerationMax = Input.GetAxis("Set Acceleration Max"),
 			setAccelerationZero = Input.GetAxis("Set Acceleration Zero"),
 			setAccelerationMin = Input.GetAxis("Set Acceleration Min"),
+			autoPilotEnable = Input.GetAxis("Toggle Autopilot"),
 		};
 
 		JobHandle jobHandle = new PlayerInputJob { playerMovementInput = input }.Schedule(state.Dependency);

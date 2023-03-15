@@ -25,10 +25,10 @@ public struct BaseShipStats : IComponentData
 	public const float baseShipShield = 10.0f;
 	public const float shipArmorProtection = 1 - 0.01f;
 	public const float shipShieldProtection = 1 - 0.01f;
-	public const float shipShieldAbsorptionFactor = 1 / 3f;         // Shield takes this percent of absorbed damage
+	public const float shipShieldAbsorptionFactor = 1 / 3f;		// Shield takes this percent of absorbed damage
 	public const float shipShieldRegenFastPercent = 0.01f / Global.tickRate;
 	public const float shipShieldRegenSlowPercent = 0.001f / Global.tickRate;
-	public const float shipShieldRegenFastDelay = 30 * Global.tickRate;
+	public const int shipShieldRegenFastDelay = 20 * Global.tickRate;
 
 	public const float baseShipLaserDamage = 20.0f;
 	public const float baseShipLaserCooldown = 15 * Global.tickRate;
@@ -90,7 +90,9 @@ public struct BaseShipStats : IComponentData
 	public const float shipPlayerArmorAdd = 1.0f;
 	public const float shipPlayerArmorAddPerHullDamagePercent = 0.01f;			// Percent of current hull
 	public const float shipPlayerDamageArmorDecayPerTick = 0.1f;
+	public const float shipPlayerDamageArmorDecayPercentPerTick = 1 - 0.001f;
 	public const float shipPlayerDestructionMinDamageMult = 10.0f;				// The player ship must take at least (current hull * this) amount of damage to be destroyed
+	public const int shipPlayerDamageArmorDecayBuffer = 2 * Global.tickRate;
 
 	public const float shipPlayerArmorAddPerHullDamagePercentDifficultyMod = 0.0005f;	// Added or subtracted based on difficulty
 
@@ -106,4 +108,6 @@ public struct BaseShipStats : IComponentData
 	public const float shipUpgradeCostPerLevelAdd = 2.0f;
 	public const float shipUpgradeCostPerOtherLevelAdd = -1.0f;
 	public const float shipUpgradeCostPerSectorFactor = 1 - 0.2f;
+
+	public const int shipStartingResources = 100;
 }
