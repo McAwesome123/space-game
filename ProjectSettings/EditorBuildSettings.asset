@@ -4,7 +4,16 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Space Game/Scenes/TestScene.unity
+    guid: 9fc0d4010bbf28b4594072e72b8655ab
+  - enabled: 0
+    path: Assets/Space Game/Scenes/MenuScene.unity
+    guid: 05f434e78f98bb346931ee73fb03b723
+  - enabled: 1
+    path: Assets/Space Game/Scenes/TestScene/EntitiesSubScene.unity
+    guid: 00baf68f9826d974893c520fbe0a2793
   m_configObjects:
     com.unity.adaptiveperformance.loader_settings: {fileID: 11400000, guid: 404d6aa764987cd4ab848b7de8a87892, type: 2}
     com.unity.adaptiveperformance.simulator.provider_settings: {fileID: 11400000, guid: e3418c26908471b4a85e566740110c87, type: 2}

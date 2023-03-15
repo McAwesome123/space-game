@@ -104,7 +104,7 @@ public readonly partial struct MoveShipAspect : IAspect
 
 	public void CapSpeed()
 	{
-		if (math.length(physicsVelocity.ValueRO.Linear) > shipStats.ValueRO.maxSpeed)
+		if (math.length(physicsVelocity.ValueRO.Linear) >= shipStats.ValueRO.maxSpeed)
 		{
 			double mult = shipStats.ValueRO.maxSpeed / math.length(physicsVelocity.ValueRO.Linear) * 0.99999;
 			double3 newVelocity = (double3)physicsVelocity.ValueRO.Linear * mult;
