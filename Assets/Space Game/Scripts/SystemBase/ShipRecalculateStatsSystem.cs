@@ -22,6 +22,11 @@ public partial class ShipRecalculateStatsSystem : SystemBase
 
 	protected override void OnUpdate()
 	{
+		if (global.global.gamePaused != 0)
+		{
+			return;
+		}
+
 		if (global.global.recalculateStats)
 		{
 			foreach((RefRW<ShipStats> stats, RefRO<PlayerMoveObj> player) in SystemAPI.Query<RefRW<ShipStats>, RefRO<PlayerMoveObj>>())

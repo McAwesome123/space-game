@@ -23,7 +23,6 @@ public partial struct AutoPilotISystem : ISystem
 
 	public void OnCreate(ref SystemState state)
 	{
-		gamePaused = GameObject.Find("Global").GetComponent<Global>().gamePaused;
 		random.random = new Unity.Mathematics.Random(GameObject.Find("Global").GetComponent<Global>().currentStar.random.NextUInt());
 		Debug.Log(random.random.NextInt());
 	}
@@ -33,6 +32,7 @@ public partial struct AutoPilotISystem : ISystem
 
 	public void OnUpdate(ref SystemState state)
 	{
+		gamePaused = SystemAPI.GetSingleton<GlobalEntity>().gamePaused;
 		if (gamePaused != 0)
 		{
 			return;

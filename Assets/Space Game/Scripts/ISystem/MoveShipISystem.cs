@@ -40,6 +40,12 @@ public partial struct MoveShipISystem : ISystem
 	[BurstCompile]
 	public void OnUpdate(ref SystemState state)
 	{
+		byte gamePaused = SystemAPI.GetSingleton<GlobalEntity>().gamePaused;
+		if (gamePaused != 0)
+		{
+			return;
+		}
+
 		PlayerMovementInput input = new()
 		{
 			pitch = Input.GetAxis("Pitch"),

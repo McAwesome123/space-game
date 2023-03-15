@@ -9,14 +9,42 @@ using Unity.Physics;
 using Unity.Physics.Systems;
 using UnityEngine;
 
+public class ShipDamageSystemGlobal : IComponentData
+{
+	public Global global;
+
+	public ShipDamageSystemGlobal()
+	{
+		global = GameObject.Find("Global").GetComponent<Global>();
+	}
+}
+
 [UpdateInGroup(typeof(FixedStepSimulationSystemGroup))]
 //[UpdateAfter(typeof(PhysicsSimulationGroup))]
 public partial class ShipDamageSystem : SystemBase
 {
+	readonly ShipDamageSystemGlobal global = new();
 	private bool noPhysics = false;
+
+	protected override void OnStartRunning()
+	{
+		base.OnStartRunning();
+	}
 
 	protected override void OnUpdate()
 	{
+		RefRW<PhysicsStep> physicsStep = SystemAPI.GetSingletonRW<PhysicsStep>();
+		if (global.global.gamePaused != 0)
+		{
+			physicsStep.ValueRW.SimulationType = SimulationType.NoPhysics;
+			return;
+		}
+		else if (physicsStep.ValueRO.SimulationType == SimulationType.NoPhysics)
+		{
+			physicsStep.ValueRW.SimulationType = SimulationType.UnityPhysics;
+			return;
+		}
+
 		foreach((RefRW<Collision> collision, RefRO<PhysicsVelocity> velocity) in SystemAPI.Query<RefRW<Collision>, RefRO<PhysicsVelocity>>())
 		{
 			collision.ValueRW.previousVelocity = collision.ValueRO.currentVelocity;

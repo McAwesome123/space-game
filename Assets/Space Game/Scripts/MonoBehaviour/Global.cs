@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Entities;
 using Unity.Mathematics;
+using Unity.Physics;
 using UnityEngine;
 
 public class Star
@@ -76,6 +77,7 @@ public class Global : MonoBehaviour
 	public ulong ticksPassedInSector;
 
 	private int heldCancelKey;
+	private int heldPauseKey;
 
 	public enum PauseTypes
 	{
@@ -83,6 +85,7 @@ public class Global : MonoBehaviour
 		PlayerPause =	0b00000001,
 		MenuPause =	0b00000010,
 		CutscenePause =	0b00000100,
+		ForcedPause =	0b00001000,
 	};
 
 	private void Start()
@@ -134,6 +137,7 @@ public class Global : MonoBehaviour
 		ticksPassedInSector = 0;
 
 		heldCancelKey = 0;
+		heldPauseKey = 0;
 	}
 
 	private void FixedUpdate()
@@ -146,16 +150,45 @@ public class Global : MonoBehaviour
 		{
 			heldCancelKey = 0;
 		}
+		if (Input.GetAxis("Pause") != 0)
+		{
+			heldPauseKey++;
+		}
+		else
+		{
+			heldPauseKey = 0;
+		}
 
 		if (heldCancelKey > 3 * tickRate)
 		{
 			Application.Quit();
 		}
 
+		if (heldPauseKey == 1)
+		{
+			gamePaused ^= (byte)PauseTypes.PlayerPause;
+		}
+
+		if (World.DefaultGameObjectInjectionWorld.EntityManager.GetComponentData<ShipStats>(World.DefaultGameObjectInjectionWorld.EntityManager.CreateEntityQuery(typeof(PlayerMoveObj)).GetSingletonEntity()).currentHullPoints < 0)
+		{
+			gamePaused |= (byte)PauseTypes.ForcedPause;
+		}
+		else
+		{
+			gamePaused &= unchecked((byte)~PauseTypes.ForcedPause);
+		}
+
 		if (gamePaused != 0)
 		{
+			Physics.simulationMode = SimulationMode.Script;
 			return;
 		}
+		else
+		{
+			Physics.simulationMode = SimulationMode.FixedUpdate;
+		}
+
+		World.DefaultGameObjectInjectionWorld.EntityManager.SetComponentData<GlobalEntity>(World.DefaultGameObjectInjectionWorld.EntityManager.CreateEntityQuery(typeof(GlobalEntity)).GetSingletonEntity(), new GlobalEntity { gamePaused = gamePaused });
 
 		if (ticksPassed < ulong.MaxValue)
 			ticksPassed++;

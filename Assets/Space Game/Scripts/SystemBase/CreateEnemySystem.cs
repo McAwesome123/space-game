@@ -24,6 +24,11 @@ public partial class CreateEnemySystem : SystemBase
 
 	protected override void OnUpdate()
 	{
+		if (global.global.gamePaused != 0)
+		{
+			return;
+		}
+
 		ticksPassed = global.global.ticksPassed;
 		ticksPassedInSector = global.global.ticksPassedInSector;
 		random = new(global.global.currentStar.random.NextUInt());
